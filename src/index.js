@@ -41,6 +41,41 @@ document.addEventListener("DOMContentLoaded", () =>  {
     dogInfo.appendChild(h2)
     dogInfo.appendChild(goodButton)
 
+    // clicks good/bad button
+    goodButton.addEventListener("click", () => {
+
+      let isGoodDog = goodButton.textContent === "Good Dog!"
+      let dogStatus = {
+        isGoodDog: !isGoodDog
+      }
+
+      fetch(`http://localhost:3000/pups/${dog.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(dogStatus)
+    })
+    .then((response) => response.json())
+    .then(() => {
+      if (isGoodDog) {
+        goodButton.textContent = "Bad Dog!"
+      } else {
+        goodButton.textContent = "Good Dog!"
+      }
+    })
+    .catch((e) => alert(e.message))
+  });
+
+
+
+
+
+
+    // should be updated
+
+
 
   }
 
